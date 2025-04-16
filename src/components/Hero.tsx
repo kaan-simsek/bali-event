@@ -32,18 +32,11 @@ export default function Hero() {
 
   return (
     <div className="relative min-h-screen">
-      {/* Hero background image */}
-      <div className="absolute inset-0 z-0">
-        <img
-          src="https://images.unsplash.com/photo-1518495973542-4542c06a5843?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
-          alt="Bali Sacred Forest"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-background"></div>
-      </div>
+      {/* Simple green background */}
+      <div className="absolute inset-0 z-0 bg-gradient-to-b from-bali-green/20 to-bali-green/5"></div>
 
       {/* Hero content */}
-      <div className="relative z-10 container mx-auto px-4 h-screen flex flex-col justify-center items-center text-white text-center">
+      <div className="relative z-10 container mx-auto px-4 h-screen flex flex-col justify-center items-center text-center">
         <div className="w-full max-w-4xl">
           <Carousel className="mb-8">
             <CarouselContent>
@@ -66,7 +59,7 @@ export default function Hero() {
                 <button
                   key={index}
                   className={`w-3 h-3 rounded-full ${
-                    activeSlide === index ? "bg-white" : "bg-white/40"
+                    activeSlide === index ? "bg-bali-green" : "bg-bali-green/40"
                   }`}
                   onClick={() => setActiveSlide(index)}
                 />
@@ -83,7 +76,7 @@ export default function Hero() {
           </Button>
           <Button
             variant="outline"
-            className="border-white text-white hover:bg-white/20 transition-colors px-8 py-6 text-lg"
+            className="border-bali-green text-bali-green hover:bg-bali-green/20 transition-colors px-8 py-6 text-lg"
             onClick={scrollToEvents}
           >
             Explore Events
@@ -95,7 +88,7 @@ export default function Hero() {
           <Button
             variant="ghost"
             size="icon"
-            className="text-white hover:bg-white/20 transition-colors"
+            className="text-bali-green hover:bg-bali-green/20 transition-colors"
             onClick={scrollToEvents}
           >
             <ArrowDown size={24} />

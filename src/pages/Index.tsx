@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import Layout from "@/components/Layout";
 import Hero from "@/components/Hero";
@@ -51,13 +52,6 @@ const Index = () => {
     setVisibleEvents(8);
   };
 
-  const resetFilters = () => {
-    setActiveCategory("all");
-    setSearchQuery("");
-    setSelectedDate(undefined);
-    setVisibleEvents(8);
-  };
-
   const loadMoreEvents = () => {
     setVisibleEvents(prev => Math.min(prev + 4, filteredEvents.length));
   };
@@ -79,7 +73,7 @@ const Index = () => {
           </div>
 
           <div className="mb-8">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" size={18} />
                 <Input
@@ -111,14 +105,6 @@ const Index = () => {
                   />
                 </PopoverContent>
               </Popover>
-              
-              <Button 
-                variant="outline" 
-                onClick={resetFilters}
-                className="bg-bali-sand hover:bg-bali-sand/80"
-              >
-                Reset Filters
-              </Button>
             </div>
             
             <CategoryFilter
@@ -137,8 +123,16 @@ const Index = () => {
           ) : (
             <div className="text-center py-12">
               <p className="text-lg text-muted-foreground">No events found matching your criteria.</p>
-              <Button onClick={resetFilters} className="mt-4 bg-bali-green hover:bg-bali-green-dark">
-                Reset Filters
+              <Button 
+                onClick={() => {
+                  setActiveCategory("all");
+                  setSearchQuery("");
+                  setSelectedDate(undefined);
+                  setVisibleEvents(8);
+                }} 
+                className="mt-4 bg-bali-green hover:bg-bali-green-dark"
+              >
+                Clear Filters
               </Button>
             </div>
           )}
