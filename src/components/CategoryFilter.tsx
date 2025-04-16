@@ -1,5 +1,4 @@
 
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
 interface CategoryFilterProps {
@@ -14,7 +13,7 @@ export default function CategoryFilter({
   activeCategory,
 }: CategoryFilterProps) {
   return (
-    <div className="flex flex-wrap gap-2 justify-center">
+    <div className="flex flex-wrap gap-2 justify-center mb-8">
       <Button
         variant={activeCategory === "all" ? "default" : "outline"}
         className={activeCategory === "all" ? "bg-bali-green hover:bg-bali-green-dark" : ""}

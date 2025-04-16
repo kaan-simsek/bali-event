@@ -4,26 +4,63 @@ import Layout from "@/components/Layout";
 import Hero from "@/components/Hero";
 import EventCard from "@/components/EventCard";
 import CategoryFilter from "@/components/CategoryFilter";
-import FAQSection from "@/components/FAQSection";
-import LocationSection from "@/components/LocationSection";
 import ContactForm from "@/components/ContactForm";
 import { events, categories } from "@/data/eventData";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Search, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Calendar as CalendarComponent } from "@/components/ui/calendar";
+import { format } from "date-fns";
+import { cn } from "@/lib/utils";
 
 const Index = () => {
   const [activeCategory, setActiveCategory] = useState("all");
-  const [visibleEvents, setVisibleEvents] = useState(8); // Initial number of visible events
+  const [visibleEvents, setVisibleEvents] = useState(8);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
 
   const filteredEvents = events.filter(
-    event =>
-      activeCategory === "all" ||
-      event.category.toLowerCase().includes(activeCategory.toLowerCase())
+    event => {
+      // Filter by category
+      const categoryMatch = activeCategory === "all" || 
+        event.category.toLowerCase().includes(activeCategory.toLowerCase());
+      
+      // Filter by search query
+      const searchMatch = searchQuery === "" || 
+        event.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        event.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        event.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        event.teacher.toLowerCase().includes(searchQuery.toLowerCase());
+      
+      // Filter by date
+      const dateMatch = !selectedDate || 
+        event.date.includes(format(selectedDate, "MMMM d, yyyy"));
+      
+      return categoryMatch && searchMatch && dateMatch;
+    }
   );
 
   const handleFilterChange = (category: string) => {
     setActiveCategory(category);
     setVisibleEvents(8); // Reset visible events when changing filters
+  };
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+    setVisibleEvents(8); // Reset visible events when searching
+  };
+
+  const handleDateSelect = (date: Date | undefined) => {
+    setSelectedDate(date);
+    setVisibleEvents(8); // Reset visible events when selecting date
+  };
+
+  const resetFilters = () => {
+    setActiveCategory("all");
+    setSearchQuery("");
+    setSelectedDate(undefined);
+    setVisibleEvents(8);
   };
 
   const loadMoreEvents = () => {
@@ -34,6 +71,102 @@ const Index = () => {
     <Layout>
       {/* Hero Section */}
       <Hero />
+
+      {/* Events Section */}
+      <section id="events" className="py-20 bg-gradient-to-b from-white to-bali-sand">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4">
+              Upcoming Events
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Explore our diverse range of events designed to nurture your body, mind, and spirit.
+              Filter by category, date, or search to find experiences that resonate with you.
+            </p>
+          </div>
+
+          {/* Search and filters */}
+          <div className="mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+              {/* Search bar */}
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" size={18} />
+                <Input
+                  type="text"
+                  placeholder="Search events..."
+                  value={searchQuery}
+                  onChange={handleSearchChange}
+                  className="pl-10"
+                />
+              </div>
+              
+              {/* Date picker */}
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button variant="outline" className={cn(
+                    "w-full justify-start text-left",
+                    !selectedDate && "text-muted-foreground"
+                  )}>
+                    <Calendar className="mr-2 h-4 w-4" />
+                    {selectedDate ? format(selectedDate, "PPP") : <span>Pick a date</span>}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <CalendarComponent
+                    mode="single"
+                    selected={selectedDate}
+                    onSelect={handleDateSelect}
+                    initialFocus
+                    className="pointer-events-auto"
+                  />
+                </PopoverContent>
+              </Popover>
+              
+              {/* Reset filters button */}
+              <Button 
+                variant="outline" 
+                onClick={resetFilters}
+                className="bg-bali-sand hover:bg-bali-sand/80"
+              >
+                Reset Filters
+              </Button>
+            </div>
+            
+            {/* Category filter */}
+            <CategoryFilter
+              categories={categories}
+              onFilterChange={handleFilterChange}
+              activeCategory={activeCategory}
+            />
+          </div>
+
+          {filteredEvents.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {filteredEvents.slice(0, visibleEvents).map((event) => (
+                <EventCard key={event.id} event={event} />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-lg text-muted-foreground">No events found matching your criteria.</p>
+              <Button onClick={resetFilters} className="mt-4 bg-bali-green hover:bg-bali-green-dark">
+                Reset Filters
+              </Button>
+            </div>
+          )}
+
+          {visibleEvents < filteredEvents.length && (
+            <div className="mt-10 text-center">
+              <Button
+                onClick={loadMoreEvents}
+                className="bg-bali-green hover:bg-bali-green-dark transition-colors"
+              >
+                Load More Events <ArrowRight size={16} className="ml-2" />
+              </Button>
+            </div>
+          )}
+        </div>
+      </section>
 
       {/* About Section */}
       <section className="py-20 bg-white">
@@ -70,52 +203,6 @@ const Index = () => {
           </div>
         </div>
       </section>
-
-      {/* Events Section */}
-      <section id="events" className="py-20 bg-gradient-to-b from-white to-bali-sand">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4">
-              Upcoming Events
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Explore our diverse range of events designed to nurture your body, mind, and spirit.
-              Filter by category to find experiences that resonate with you.
-            </p>
-          </div>
-
-          <div className="mb-10">
-            <CategoryFilter
-              categories={categories}
-              onFilterChange={handleFilterChange}
-              activeCategory={activeCategory}
-            />
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {filteredEvents.slice(0, visibleEvents).map((event) => (
-              <EventCard key={event.id} event={event} />
-            ))}
-          </div>
-
-          {visibleEvents < filteredEvents.length && (
-            <div className="mt-10 text-center">
-              <Button
-                onClick={loadMoreEvents}
-                className="bg-bali-green hover:bg-bali-green-dark transition-colors"
-              >
-                Load More Events <ArrowRight size={16} className="ml-2" />
-              </Button>
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* Location Section */}
-      <LocationSection />
-
-      {/* FAQ Section */}
-      <FAQSection />
 
       {/* Contact Section */}
       <section className="py-20 bg-white">
