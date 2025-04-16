@@ -61,8 +61,33 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+                // Custom colors for Bali Spirit Gatherings
+                bali: {
+                    green: {
+                        light: '#7A9970',
+                        DEFAULT: '#4A6741',
+                        dark: '#34502C',
+                    },
+                    earth: {
+                        light: '#D2B48C',
+                        DEFAULT: '#8B5A2B',
+                        dark: '#654321',
+                    },
+                    blue: {
+                        light: '#A5D8DD',
+                        DEFAULT: '#4F91CD',
+                        dark: '#3A6EA5',
+                    },
+                    sand: '#F5F1E6',
+                    coral: '#E8846B',
+                }
 			},
+            fontFamily: {
+                sans: ['Inter', 'sans-serif'],
+                serif: ['Playfair Display', 'serif'],
+                display: ['Montserrat', 'sans-serif'],
+            },
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
