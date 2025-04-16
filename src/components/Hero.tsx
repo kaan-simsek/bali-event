@@ -1,14 +1,34 @@
 
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowDown } from "lucide-react";
+import { events } from "@/data/eventData";
+import { 
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext
+} from "@/components/ui/carousel";
 
 export default function Hero() {
+  const [activeSlide, setActiveSlide] = useState(0);
+  const featuredEvents = events.slice(0, 4);
+
   const scrollToEvents = () => {
     const eventsSection = document.getElementById("events");
     if (eventsSection) {
       eventsSection.scrollIntoView({ behavior: "smooth" });
     }
   };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveSlide((prev) => (prev === featuredEvents.length - 1 ? 0 : prev + 1));
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [featuredEvents.length]);
 
   return (
     <div className="relative min-h-screen">
@@ -24,17 +44,40 @@ export default function Hero() {
 
       {/* Hero content */}
       <div className="relative z-10 container mx-auto px-4 h-screen flex flex-col justify-center items-center text-white text-center">
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold leading-tight mb-6 animate-float">
-          <span className="block">Bali Spirit</span>
-          <span className="block">Gatherings</span>
-        </h1>
-        <p className="text-xl md:text-2xl max-w-xl mb-8 leading-relaxed">
-          Join our conscious community for transformative experiences in the heart of Bali
-        </p>
-        <p className="text-lg md:text-xl mb-10 font-medium">
-          June 15-25, 2025 • Ubud, Bali
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4">
+        <div className="w-full max-w-4xl">
+          <Carousel className="mb-8">
+            <CarouselContent>
+              {featuredEvents.map((event, index) => (
+                <CarouselItem key={event.id}>
+                  <div className={`transition-opacity duration-500 ${activeSlide === index ? 'opacity-100' : 'opacity-0'}`}>
+                    <h3 className="text-2xl md:text-3xl font-medium mb-2">{event.title}</h3>
+                    <p className="text-lg md:text-xl mb-2">{event.date}</p>
+                    <p className="text-base md:text-lg mb-4">{event.location}</p>
+                    <p className="text-sm md:text-base max-w-xl mx-auto mb-4">{event.description}</p>
+                    <span className="inline-block px-3 py-1 bg-bali-green/80 rounded-full text-white text-sm mb-4">
+                      {event.category}
+                    </span>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <div className="flex justify-center gap-2 mt-4">
+              {featuredEvents.map((_, index) => (
+                <button
+                  key={index}
+                  className={`w-3 h-3 rounded-full ${
+                    activeSlide === index ? "bg-white" : "bg-white/40"
+                  }`}
+                  onClick={() => setActiveSlide(index)}
+                />
+              ))}
+            </div>
+            <CarouselPrevious className="left-4 lg:left-10" />
+            <CarouselNext className="right-4 lg:right-10" />
+          </Carousel>
+        </div>
+
+        <div className="flex flex-col sm:flex-row gap-4 mt-4">
           <Button className="bg-bali-green hover:bg-bali-green-dark text-white transition-colors px-8 py-6 text-lg">
             Register Now
           </Button>

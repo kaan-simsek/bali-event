@@ -1,10 +1,8 @@
-
 import { useState } from "react";
 import Layout from "@/components/Layout";
 import Hero from "@/components/Hero";
 import EventCard from "@/components/EventCard";
 import CategoryFilter from "@/components/CategoryFilter";
-import ContactForm from "@/components/ContactForm";
 import { events, categories } from "@/data/eventData";
 import { ArrowRight, Search, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -22,18 +20,15 @@ const Index = () => {
 
   const filteredEvents = events.filter(
     event => {
-      // Filter by category
       const categoryMatch = activeCategory === "all" || 
         event.category.toLowerCase().includes(activeCategory.toLowerCase());
       
-      // Filter by search query
       const searchMatch = searchQuery === "" || 
         event.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         event.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
         event.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
         event.teacher.toLowerCase().includes(searchQuery.toLowerCase());
       
-      // Filter by date
       const dateMatch = !selectedDate || 
         event.date.includes(format(selectedDate, "MMMM d, yyyy"));
       
@@ -43,17 +38,17 @@ const Index = () => {
 
   const handleFilterChange = (category: string) => {
     setActiveCategory(category);
-    setVisibleEvents(8); // Reset visible events when changing filters
+    setVisibleEvents(8);
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
-    setVisibleEvents(8); // Reset visible events when searching
+    setVisibleEvents(8);
   };
 
   const handleDateSelect = (date: Date | undefined) => {
     setSelectedDate(date);
-    setVisibleEvents(8); // Reset visible events when selecting date
+    setVisibleEvents(8);
   };
 
   const resetFilters = () => {
@@ -69,10 +64,8 @@ const Index = () => {
 
   return (
     <Layout>
-      {/* Hero Section */}
       <Hero />
 
-      {/* Events Section */}
       <section id="events" className="py-20 bg-gradient-to-b from-white to-bali-sand">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
@@ -85,10 +78,8 @@ const Index = () => {
             </p>
           </div>
 
-          {/* Search and filters */}
           <div className="mb-8">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-              {/* Search bar */}
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" size={18} />
                 <Input
@@ -100,7 +91,6 @@ const Index = () => {
                 />
               </div>
               
-              {/* Date picker */}
               <Popover>
                 <PopoverTrigger asChild>
                   <Button variant="outline" className={cn(
@@ -122,7 +112,6 @@ const Index = () => {
                 </PopoverContent>
               </Popover>
               
-              {/* Reset filters button */}
               <Button 
                 variant="outline" 
                 onClick={resetFilters}
@@ -132,7 +121,6 @@ const Index = () => {
               </Button>
             </div>
             
-            {/* Category filter */}
             <CategoryFilter
               categories={categories}
               onFilterChange={handleFilterChange}
@@ -168,81 +156,60 @@ const Index = () => {
         </div>
       </section>
 
-      {/* About Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-gradient-to-b from-bali-green/10 to-white">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6">
-              A Conscious Community Gathering
-            </h2>
-            <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-              Join us for ten transformative days of connection, healing, and growth in the spiritual heart of Bali. 
-              Our gathering brings together like-minded individuals from around the world to share in dance, 
-              breathwork, sound healing, meditation, and workshops led by experienced facilitators.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
-              <div className="bg-bali-sand p-6 rounded-lg">
-                <h3 className="text-xl font-serif font-medium mb-3">Movement & Dance</h3>
-                <p className="text-muted-foreground">
-                  Free your body and express your authentic self through ecstatic dance, contact improvisation, and other movement practices.
-                </p>
-              </div>
-              <div className="bg-bali-sand p-6 rounded-lg">
-                <h3 className="text-xl font-serif font-medium mb-3">Healing & Breathwork</h3>
-                <p className="text-muted-foreground">
-                  Experience profound transformation through breathwork, sound healing, voice therapy, and meditation sessions.
-                </p>
-              </div>
-              <div className="bg-bali-sand p-6 rounded-lg">
-                <h3 className="text-xl font-serif font-medium mb-3">Workshops & Training</h3>
-                <p className="text-muted-foreground">
-                  Develop new skills and deepen your practice with workshops on Reiki, yoga teacher training, and more.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6">
-                Get in Touch
+                Start selling with Spirit Gatherings
               </h2>
               <p className="text-lg text-muted-foreground mb-8">
-                Have questions about our events, accommodation options, or anything else? 
-                Feel free to reach out to our team. We're here to help make your Bali 
-                Spirit Gathering experience as transformative as possible.
+                We're a self-service platform that empowers our clients to sell offers, events or products 
+                and reach audiences with innovation driven management.
               </p>
-              
-              <div className="bg-bali-green/10 p-6 rounded-lg mb-6">
-                <h3 className="text-xl font-medium mb-4">Our Location</h3>
-                <p className="mb-2">Ubud, Bali, Indonesia</p>
-                <p className="mb-2">Email: info@balispiritgatherings.com</p>
-                <p>Phone: +62 123 456 7890</p>
-              </div>
-              
-              <div>
-                <h3 className="text-xl font-medium mb-4">Follow Us</h3>
-                <div className="flex space-x-4">
-                  <a href="#" className="p-2 bg-bali-green text-white rounded-full hover:bg-bali-green-dark transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
-                  </a>
-                  <a href="#" className="p-2 bg-bali-green text-white rounded-full hover:bg-bali-green-dark transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-                  </a>
-                  <a href="#" className="p-2 bg-bali-green text-white rounded-full hover:bg-bali-green-dark transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
-                  </a>
+              <div className="space-y-6">
+                <div className="flex items-start">
+                  <div className="bg-bali-green text-white p-2 rounded-full mr-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-medium mb-2">Easy Setup</h3>
+                    <p className="text-muted-foreground">Create your event or product listing in minutes with our intuitive interface.</p>
+                  </div>
+                </div>
+                <div className="flex items-start">
+                  <div className="bg-bali-green text-white p-2 rounded-full mr-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M16 16s-1.5-2-4-2-4 2-4 2"></path><line x1="9" x2="9.01" y1="9" y2="9"></line><line x1="15" x2="15.01" y1="9" y2="9"></line></svg>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-medium mb-2">Global Reach</h3>
+                    <p className="text-muted-foreground">Connect with conscious communities around the world interested in your offerings.</p>
+                  </div>
+                </div>
+                <div className="flex items-start">
+                  <div className="bg-bali-green text-white p-2 rounded-full mr-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"></rect><line x1="2" x2="22" y1="10" y2="10"></line></svg>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-medium mb-2">Secure Payments</h3>
+                    <p className="text-muted-foreground">Handle transactions with confidence using our secure payment processing system.</p>
+                  </div>
                 </div>
               </div>
+              <Button className="mt-8 bg-bali-green hover:bg-bali-green-dark text-white px-8 py-6 text-lg">
+                Start Selling Today
+              </Button>
             </div>
-            
-            <div>
-              <ContactForm />
+            <div className="relative">
+              <img 
+                src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&auto=format&fit=crop&w=1800&q=80" 
+                alt="Bali Mountain Summit" 
+                className="rounded-lg shadow-xl"
+              />
+              <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-lg shadow-lg max-w-xs">
+                <p className="text-lg font-medium mb-2">+200% Growth</p>
+                <p className="text-sm text-muted-foreground">Our sellers report an average 200% increase in their business after joining our platform.</p>
+              </div>
             </div>
           </div>
         </div>
