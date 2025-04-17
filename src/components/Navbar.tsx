@@ -4,14 +4,6 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Ticket, CalendarPlus, UserRound } from "lucide-react";
 
-const navLinks = [
-  { name: "Home", path: "/" },
-  { name: "Events", path: "/events" },
-  { name: "Location", path: "/location" },
-  { name: "FAQ", path: "/faq" },
-  { name: "Contact", path: "/contact" },
-];
-
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -41,24 +33,12 @@ export default function Navbar() {
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center">
             <span className="text-2xl font-serif font-bold bg-clip-text text-transparent bg-gradient-to-r from-bali-green to-bali-blue-dark">
-              Soul Journey
+              Soul Journeys
             </span>
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-6">
-            <ul className="flex space-x-6">
-              {navLinks.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    to={link.path}
-                    className="relative font-medium text-foreground hover:text-primary transition-colors duration-200 before:content-[''] before:absolute before:w-0 before:h-0.5 before:bottom-0 before:left-0 before:bg-primary before:transition-all before:duration-300 hover:before:w-full"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
             <div className="flex items-center space-x-4">
               <Link to="/tickets" className="flex items-center text-foreground hover:text-primary transition-colors">
                 <Ticket className="mr-1" size={16} />
@@ -91,17 +71,6 @@ export default function Navbar() {
         <div className="md:hidden bg-white absolute w-full shadow-lg">
           <nav className="container mx-auto px-4 py-4">
             <ul className="flex flex-col space-y-3">
-              {navLinks.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    to={link.path}
-                    className="block py-2 font-medium text-foreground hover:text-primary transition-colors"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
               <li className="py-2">
                 <Link to="/tickets" className="flex items-center text-foreground hover:text-primary transition-colors">
                   <Ticket className="mr-1" size={16} />

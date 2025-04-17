@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 
 const Events = () => {
   const [activeCategory, setActiveCategory] = useState("all");
-  const [visibleEvents, setVisibleEvents] = useState(12);
+  const [visibleEvents, setVisibleEvents] = useState(16); // Increased to show more events initially
 
   const filteredEvents = events.filter(
     event =>
@@ -19,11 +19,11 @@ const Events = () => {
 
   const handleFilterChange = (category: string) => {
     setActiveCategory(category);
-    setVisibleEvents(12);
+    setVisibleEvents(16); // Reset to show 16 events
   };
 
   const loadMoreEvents = () => {
-    setVisibleEvents(prev => Math.min(prev + 4, filteredEvents.length));
+    setVisibleEvents(prev => Math.min(prev + 8, filteredEvents.length));
   };
 
   return (
@@ -34,10 +34,6 @@ const Events = () => {
             <h1 className="text-4xl md:text-5xl font-serif font-bold mb-4">
               Our Events
             </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Explore our diverse range of events designed to nurture your body, mind, and spirit.
-              Filter by category to find experiences that resonate with you.
-            </p>
           </div>
 
           <div className="mb-10">

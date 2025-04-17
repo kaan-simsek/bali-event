@@ -23,7 +23,7 @@ export const events: Event[] = [
     time: "7:00 PM - 10:00 PM",
     location: "Pyramid of the Sun",
     teacher: "Maria Ancestral",
-    price: "$35",
+    price: "350k",
   },
   {
     id: "2",
@@ -35,7 +35,7 @@ export const events: Event[] = [
     time: "9:00 AM - 11:00 AM",
     location: "Sacred Lotus Hall",
     teacher: "Breathwork Practitioner",
-    price: "$40",
+    price: "400k",
   },
   {
     id: "3",
@@ -47,7 +47,7 @@ export const events: Event[] = [
     time: "7:30 PM - 9:30 PM",
     location: "Echo Temple",
     teacher: "Sound Master Lee",
-    price: "$45",
+    price: "450k",
   },
   {
     id: "4",
@@ -59,7 +59,7 @@ export const events: Event[] = [
     time: "10:00 AM - 4:00 PM",
     location: "Healing Center",
     teacher: "Reiki Master Sarah",
-    price: "$199",
+    price: "1.990k",
   },
   {
     id: "5",
@@ -71,7 +71,7 @@ export const events: Event[] = [
     time: "2:00 PM - 5:00 PM",
     location: "Movement Studio",
     teacher: "Contact Dancer Julie",
-    price: "$30",
+    price: "300k",
   },
   {
     id: "6",
@@ -83,7 +83,7 @@ export const events: Event[] = [
     time: "3:00 PM - 5:30 PM",
     location: "Acoustic Garden",
     teacher: "Voice Coach Michael",
-    price: "$35",
+    price: "350k",
   },
   {
     id: "7",
@@ -107,7 +107,7 @@ export const events: Event[] = [
     time: "7:00 AM - 6:00 PM",
     location: "Zen Garden",
     teacher: "Meditation Guide Emma",
-    price: "$85",
+    price: "850k",
   },
   {
     id: "9",
@@ -119,7 +119,7 @@ export const events: Event[] = [
     time: "6:30 PM - 10:00 PM",
     location: "Sacred Circle",
     teacher: "Ceremonial Guide Isabella",
-    price: "$50",
+    price: "500k",
   },
   {
     id: "10",
@@ -131,7 +131,7 @@ export const events: Event[] = [
     time: "1:00 PM - 4:00 PM",
     location: "Harmony Hall",
     teacher: "Yoga & Massage Instructor Dao",
-    price: "$65 per pair",
+    price: "650k per pair",
   },
   {
     id: "11",
@@ -143,7 +143,7 @@ export const events: Event[] = [
     time: "7:00 PM - 10:00 PM",
     location: "Garden Restaurant",
     teacher: "Community Hosts",
-    price: "$25",
+    price: "250k",
   },
   {
     id: "12",

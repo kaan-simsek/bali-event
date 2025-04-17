@@ -10,7 +10,7 @@ export default function Footer() {
       <div className="container mx-auto py-12 px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-2">
-            <h3 className="text-2xl font-serif font-bold mb-4">Soul Journey</h3>
+            <h3 className="text-2xl font-serif font-bold mb-4">Soul Journeys</h3>
             <p className="mb-6 max-w-md">
               Join our conscious community for transformative experiences in the heart of Bali.
               Connect with like-minded individuals and embark on a journey of self-discovery.
@@ -91,7 +91,7 @@ export default function Footer() {
             </div>
           </div>
           <div>
-            <p>© {new Date().getFullYear()} Soul Journey. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} Soul Journeys. All rights reserved.</p>
           </div>
         </div>
       </div>

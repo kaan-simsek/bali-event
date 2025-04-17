@@ -1,7 +1,6 @@
 
 import { useState } from "react";
 import Layout from "@/components/Layout";
-import Hero from "@/components/Hero";
 import EventCard from "@/components/EventCard";
 import CategoryFilter from "@/components/CategoryFilter";
 import { events, categories } from "@/data/eventData";
@@ -16,7 +15,7 @@ import { DateRange } from "react-day-picker";
 
 const Index = () => {
   const [activeCategory, setActiveCategory] = useState("all");
-  const [visibleEvents, setVisibleEvents] = useState(8);
+  const [visibleEvents, setVisibleEvents] = useState(16); // Increased to show more events initially
   const [searchQuery, setSearchQuery] = useState("");
   const [dateRange, setDateRange] = useState<DateRange | undefined>();
 
@@ -63,23 +62,21 @@ const Index = () => {
 
   const handleFilterChange = (category: string) => {
     setActiveCategory(category);
-    setVisibleEvents(8);
+    setVisibleEvents(16); // Reset to show 16 events
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
-    setVisibleEvents(8);
+    setVisibleEvents(16); // Reset to show 16 events
   };
 
   const loadMoreEvents = () => {
-    setVisibleEvents(prev => Math.min(prev + 4, filteredEvents.length));
+    setVisibleEvents(prev => Math.min(prev + 8, filteredEvents.length));
   };
 
   return (
     <Layout>
-      <Hero />
-
-      <section id="events" className="py-20 bg-gradient-to-b from-white to-bali-sand">
+      <section className="pt-24 pb-20 bg-gradient-to-b from-white to-bali-sand">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4">
@@ -148,17 +145,6 @@ const Index = () => {
           ) : (
             <div className="text-center py-12">
               <p className="text-lg text-muted-foreground">No events found matching your criteria.</p>
-              <Button 
-                onClick={() => {
-                  setActiveCategory("all");
-                  setSearchQuery("");
-                  setDateRange(undefined);
-                  setVisibleEvents(8);
-                }} 
-                className="mt-4 bg-bali-green hover:bg-bali-green-dark"
-              >
-                Clear Filters
-              </Button>
             </div>
           )}
 
