@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Ticket, CalendarPlus, UserRound } from "lucide-react";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -41,7 +41,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center">
             <span className="text-2xl font-serif font-bold bg-clip-text text-transparent bg-gradient-to-r from-bali-green to-bali-blue-dark">
-              Bali Spirit Gatherings
+              Soul Journey
             </span>
           </Link>
 
@@ -59,9 +59,20 @@ export default function Navbar() {
                 </li>
               ))}
             </ul>
-            <Button className="bg-bali-green hover:bg-bali-green-dark transition-colors duration-200">
-              Register Now
-            </Button>
+            <div className="flex items-center space-x-4">
+              <Link to="/tickets" className="flex items-center text-foreground hover:text-primary transition-colors">
+                <Ticket className="mr-1" size={16} />
+                <span>My Tickets</span>
+              </Link>
+              <Link to="/host" className="flex items-center text-foreground hover:text-primary transition-colors">
+                <CalendarPlus className="mr-1" size={16} />
+                <span>Host Events</span>
+              </Link>
+              <Button className="bg-bali-green hover:bg-bali-green-dark transition-colors duration-200">
+                <UserRound className="mr-1" size={16} />
+                Login
+              </Button>
+            </div>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -91,9 +102,22 @@ export default function Navbar() {
                   </Link>
                 </li>
               ))}
+              <li className="py-2">
+                <Link to="/tickets" className="flex items-center text-foreground hover:text-primary transition-colors">
+                  <Ticket className="mr-1" size={16} />
+                  <span>My Tickets</span>
+                </Link>
+              </li>
+              <li className="py-2">
+                <Link to="/host" className="flex items-center text-foreground hover:text-primary transition-colors">
+                  <CalendarPlus className="mr-1" size={16} />
+                  <span>Host Events</span>
+                </Link>
+              </li>
               <li className="pt-2">
                 <Button className="w-full bg-bali-green hover:bg-bali-green-dark transition-colors duration-200">
-                  Register Now
+                  <UserRound className="mr-1" size={16} />
+                  Login
                 </Button>
               </li>
             </ul>

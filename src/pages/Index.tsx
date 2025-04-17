@@ -10,14 +10,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar as CalendarComponent } from "@/components/ui/calendar";
-import { format } from "date-fns";
+import { format, isWithinInterval, parse } from "date-fns";
 import { cn } from "@/lib/utils";
+import { DateRange } from "react-day-picker";
 
 const Index = () => {
   const [activeCategory, setActiveCategory] = useState("all");
   const [visibleEvents, setVisibleEvents] = useState(8);
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
+  const [dateRange, setDateRange] = useState<DateRange | undefined>();
 
   const filteredEvents = events.filter(
     event => {
@@ -30,12 +31,35 @@ const Index = () => {
         event.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
         event.teacher.toLowerCase().includes(searchQuery.toLowerCase());
       
-      const dateMatch = !selectedDate || 
-        event.date.includes(format(selectedDate, "MMMM d, yyyy"));
+      // Date filtering for range
+      const dateMatch = !dateRange || !dateRange.from || 
+        (dateRange.from && isEventInRange(event.date, dateRange));
       
       return categoryMatch && searchMatch && dateMatch;
     }
   );
+
+  const isEventInRange = (eventDateStr: string, range: DateRange) => {
+    try {
+      // Parse the event date from string
+      const eventDate = parse(eventDateStr.split(',')[0], 'MMMM d', new Date());
+      
+      if (range.from && !range.to) {
+        // If only start date is selected
+        return eventDate >= range.from;
+      }
+      
+      if (range.from && range.to) {
+        // If both dates are selected, check if event is within range
+        return isWithinInterval(eventDate, { start: range.from, end: range.to });
+      }
+      
+      return true;
+    } catch (error) {
+      console.error("Error parsing date:", error);
+      return true; // If there's an error, include the event
+    }
+  };
 
   const handleFilterChange = (category: string) => {
     setActiveCategory(category);
@@ -44,11 +68,6 @@ const Index = () => {
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
-    setVisibleEvents(8);
-  };
-
-  const handleDateSelect = (date: Date | undefined) => {
-    setSelectedDate(date);
     setVisibleEvents(8);
   };
 
@@ -66,10 +85,6 @@ const Index = () => {
             <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4">
               Upcoming Events
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Explore our diverse range of events designed to nurture your body, mind, and spirit.
-              Filter by category, date, or search to find experiences that resonate with you.
-            </p>
           </div>
 
           <div className="mb-8">
@@ -89,17 +104,27 @@ const Index = () => {
                 <PopoverTrigger asChild>
                   <Button variant="outline" className={cn(
                     "w-full justify-start text-left",
-                    !selectedDate && "text-muted-foreground"
+                    !dateRange?.from && "text-muted-foreground"
                   )}>
                     <Calendar className="mr-2 h-4 w-4" />
-                    {selectedDate ? format(selectedDate, "PPP") : <span>Pick a date</span>}
+                    {dateRange?.from ? (
+                      dateRange.to ? (
+                        <>
+                          {format(dateRange.from, "LLL dd, y")} - {format(dateRange.to, "LLL dd, y")}
+                        </>
+                      ) : (
+                        format(dateRange.from, "LLL dd, y")
+                      )
+                    ) : (
+                      <span>Select date range</span>
+                    )}
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0" align="start">
                   <CalendarComponent
-                    mode="single"
-                    selected={selectedDate}
-                    onSelect={handleDateSelect}
+                    mode="range"
+                    selected={dateRange}
+                    onSelect={setDateRange}
                     initialFocus
                     className="pointer-events-auto"
                   />
@@ -127,7 +152,7 @@ const Index = () => {
                 onClick={() => {
                   setActiveCategory("all");
                   setSearchQuery("");
-                  setSelectedDate(undefined);
+                  setDateRange(undefined);
                   setVisibleEvents(8);
                 }} 
                 className="mt-4 bg-bali-green hover:bg-bali-green-dark"
