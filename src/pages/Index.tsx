@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
 import EventCard from "@/components/EventCard";
 import CategoryFilter from "@/components/CategoryFilter";
@@ -195,9 +196,11 @@ const Index = () => {
                   </div>
                 </div>
               </div>
-              <Button className="mt-8 bg-bali-green hover:bg-bali-green-dark text-white px-8 py-6 text-lg">
-                Start Promoting Today
-              </Button>
+              <Link to="/host">
+                <Button className="mt-8 bg-bali-green hover:bg-bali-green-dark text-white px-8 py-6 text-lg">
+                  Start Promoting Today
+                </Button>
+              </Link>
             </div>
             <div className="relative">
               <img 

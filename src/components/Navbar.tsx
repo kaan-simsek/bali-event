@@ -33,7 +33,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center">
             <span className="text-2xl font-serif font-bold bg-clip-text text-transparent bg-gradient-to-r from-bali-green to-bali-blue-dark">
-              Inner Journeys
+              Soul Journeys
             </span>
           </Link>
 
@@ -48,10 +48,12 @@ export default function Navbar() {
                 <CalendarPlus className="mr-1" size={16} />
                 <span>Host Events</span>
               </Link>
-              <Button className="bg-bali-green hover:bg-bali-green-dark transition-colors duration-200">
-                <UserRound className="mr-1" size={16} />
-                Login
-              </Button>
+              <Link to="/login">
+                <Button className="bg-bali-green hover:bg-bali-green-dark transition-colors duration-200">
+                  <UserRound className="mr-1" size={16} />
+                  Login
+                </Button>
+              </Link>
             </div>
           </nav>
 
@@ -72,22 +74,35 @@ export default function Navbar() {
           <nav className="container mx-auto px-4 py-4">
             <ul className="flex flex-col space-y-3">
               <li className="py-2">
-                <Link to="/tickets" className="flex items-center text-foreground hover:text-primary transition-colors">
+                <Link 
+                  to="/tickets" 
+                  className="flex items-center text-foreground hover:text-primary transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
                   <Ticket className="mr-1" size={16} />
                   <span>My Tickets</span>
                 </Link>
               </li>
               <li className="py-2">
-                <Link to="/host" className="flex items-center text-foreground hover:text-primary transition-colors">
+                <Link 
+                  to="/host" 
+                  className="flex items-center text-foreground hover:text-primary transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
                   <CalendarPlus className="mr-1" size={16} />
                   <span>Host Events</span>
                 </Link>
               </li>
               <li className="pt-2">
-                <Button className="w-full bg-bali-green hover:bg-bali-green-dark transition-colors duration-200">
-                  <UserRound className="mr-1" size={16} />
-                  Login
-                </Button>
+                <Link 
+                  to="/login"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <Button className="w-full bg-bali-green hover:bg-bali-green-dark transition-colors duration-200">
+                    <UserRound className="mr-1" size={16} />
+                    Login
+                  </Button>
+                </Link>
               </li>
             </ul>
           </nav>
