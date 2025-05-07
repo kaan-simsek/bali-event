@@ -23,7 +23,7 @@ export const events: Event[] = [
     time: "7:00 PM - 10:00 PM",
     location: "Pyramid of Chi",
     teacher: "Maria Ancestral",
-    price: "350k",
+    price: "350k IDR",
   },
   {
     id: "2",
@@ -35,7 +35,7 @@ export const events: Event[] = [
     time: "9:00 AM - 11:00 AM",
     location: "Alchemy Yoga",
     teacher: "Breathwork Practitioner",
-    price: "400k",
+    price: "400k IDR",
   },
   {
     id: "3",
@@ -47,7 +47,7 @@ export const events: Event[] = [
     time: "7:30 PM - 9:30 PM",
     location: "Alchemy Yoga",
     teacher: "Sound Master Lee",
-    price: "450k",
+    price: "450k IDR",
   },
   {
     id: "4",
@@ -59,7 +59,7 @@ export const events: Event[] = [
     time: "10:00 AM - 4:00 PM",
     location: "Alchemy Yoga",
     teacher: "Reiki Master Sarah",
-    price: "1.990k",
+    price: "1,990k IDR",
   },
   {
     id: "5",
@@ -71,7 +71,7 @@ export const events: Event[] = [
     time: "2:00 PM - 5:00 PM",
     location: "Alchemy Yoga",
     teacher: "Contact Dancer Julie",
-    price: "300k",
+    price: "300k IDR",
   },
   {
     id: "6",
@@ -83,7 +83,7 @@ export const events: Event[] = [
     time: "3:00 PM - 5:30 PM",
     location: "Alchemy Yoga",
     teacher: "Voice Coach Michael",
-    price: "350k",
+    price: "350k IDR",
   },
   {
     id: "7",
@@ -107,7 +107,7 @@ export const events: Event[] = [
     time: "7:00 AM - 6:00 PM",
     location: "Yoga Barn",
     teacher: "Meditation Guide Emma",
-    price: "850k",
+    price: "850k IDR",
   },
   {
     id: "9",
@@ -119,7 +119,7 @@ export const events: Event[] = [
     time: "6:30 PM - 10:00 PM",
     location: "Yoga Barn",
     teacher: "Ceremonial Guide Isabella",
-    price: "500k",
+    price: "500k IDR",
   },
   {
     id: "10",
@@ -131,7 +131,7 @@ export const events: Event[] = [
     time: "1:00 PM - 4:00 PM",
     location: "Yoga Barn",
     teacher: "Yoga & Massage Instructor Dao",
-    price: "650k per pair",
+    price: "650k IDR per pair",
   },
   {
     id: "11",
@@ -143,7 +143,7 @@ export const events: Event[] = [
     time: "7:00 PM - 10:00 PM",
     location: "Yoga Barn",
     teacher: "Community Hosts",
-    price: "250k",
+    price: "250k IDR",
   },
   {
     id: "12",
