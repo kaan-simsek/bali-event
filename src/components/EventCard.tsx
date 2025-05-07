@@ -53,9 +53,11 @@ export default function EventCard({ event }: EventCardProps) {
         </Badge>
       </div>
       <div className="p-5 flex flex-col flex-grow">
-        <h3 className="text-xl font-serif font-medium mb-2 group-hover:text-primary transition-colors">
-          {event.title}
-        </h3>
+        <Link to={`/events/${event.id}`}>
+          <h3 className="text-xl font-serif font-medium mb-2 group-hover:text-primary transition-colors">
+            {event.title}
+          </h3>
+        </Link>
         <p className="text-muted-foreground mb-4 flex-grow">{event.description}</p>
         <div className="space-y-2">
           <div className="flex items-center text-sm text-muted-foreground">
